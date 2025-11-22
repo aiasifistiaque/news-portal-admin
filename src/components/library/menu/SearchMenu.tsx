@@ -31,8 +31,8 @@ const SearchMenu = ({
 	const { isOpen, onOpen, onClose: closeModal } = useDisclosure();
 	const [search, setSearch] = useState('');
 
-	const initialRef = useRef<any>(null);
-	const finalRef = useRef<any>(null);
+	const initialRef = useRef<HTMLInputElement>(null);
+	const finalRef = useRef<HTMLElement>(null);
 	const [selectedIndex, setSelectedIndex] = useState(0);
 
 	const onClose = () => {
