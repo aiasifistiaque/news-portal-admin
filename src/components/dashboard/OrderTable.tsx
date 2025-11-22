@@ -1,36 +1,29 @@
-import React from 'react';
-import { TableObjectProps } from '@/components/library';
+import React, { useEffect } from 'react';
+import { TableObjectProps, useGetConfigQuery } from '@/components/library';
 import { viewAllDataFields } from '@/models/order';
 import TableCustom from '../library/sections/table/TableCustom';
-
-const viewAll: TableObjectProps = {
-	title: 'Orders',
-	path: 'orders',
-	clickable: true,
-	toPath: '/orders',
-	export: false,
-	search: false,
-	hidePreferences: true,
-	filters: false,
-	pagination: false,
-	limit: 5,
-	preferences: ['customer.name', 'totalItems', 'status', 'total', 'dueAmount', 'profit'],
-	// select: {
-	// 	show: true,
-	// 	menu: multiSelectMenu,
-	// },
-	// button: {
-	// 	title: 'Add Product',
-	// 	path: '/products/create',
-	// },
-	// menu: itemMenu,
-	// clickable: true,
-
-	data: viewAllDataFields,
-	showMenu: false,
-};
+import { useAppDispatch } from '@/hooks';
 
 const OrderTable = () => {
+	const { data, isFetching } = useGetConfigQuery('articles');
+	const dispatch = useAppDispatch();
+	useEffect(() => {}, []);
+	const viewAll: TableObjectProps = {
+		title: 'Popular Articles',
+		path: 'articles',
+		clickable: true,
+		toPath: 'articles',
+		export: false,
+		search: false,
+		hidePreferences: true,
+		filters: false,
+		pagination: false,
+		sort: '-views',
+		limit: 5,
+		preferences: ['code', 'name', 'views', 'createdAt', 'author.name'],
+		data: data?.table,
+		showMenu: false,
+	};
 	return <TableCustom table={viewAll} />;
 };
 

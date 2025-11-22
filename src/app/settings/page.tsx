@@ -1,130 +1,5 @@
 'use client';
 
-// import Link from 'next/link';
-// import React, { useState, useEffect } from 'react';
-// import { Button, Flex } from '@chakra-ui/react';
-
-// import { useUpdateByIdMutation } from '@/components/library/store/services/commonApi';
-// import { useGetSelfQuery } from '@/store/services/authApi';
-
-// import QrComponent from './_components/QrComponent';
-
-// import { Layout, Column, VImage, Details, HeadingMenu, useCustomToast } from '@/components/library';
-
-// const SettingsPage = () => {
-// 	const { data, isFetching } = useGetSelfQuery({});
-
-// 	const [trigger, result] = useUpdateByIdMutation();
-
-// 	const [formData, setFormData] = useState<any>({});
-
-// 	const refresh = () => {
-// 		setFormData({
-// 			name: data?.restaurant?.name || '',
-// 			email: data?.restaurant?.email || '',
-// 			image: data?.restaurant?.image || '',
-// 		});
-// 	};
-
-// 	const [editing, setEditing] = useState(false);
-
-// 	const handleChange = (e: any) => {
-// 		setFormData({ ...formData, [e.target.name]: e.target.value });
-// 	};
-
-// 	const handleSubmit = (e: any) => {
-// 		e.preventDefault();
-// 		trigger({
-// 			body: formData,
-// 			path: 'restaurant',
-// 			invalidate: ['self'],
-// 			id: data?.restaurant?._id,
-// 		});
-// 	};
-
-// 	const handleImage = (e: any) => {
-// 		//setChangedData(prevState => ({ ...prevState, image: e }));
-// 		setFormData({ ...formData, image: e });
-// 	};
-
-// 	const close = () => {
-// 		setEditing(false);
-// 		refresh();
-// 	};
-// 	const open = () => setEditing(true);
-
-// 	useEffect(() => {
-// 		if (!isFetching && data) {
-// 			refresh();
-// 		}
-// 	}, [data]);
-
-// 	useEffect(() => {
-// 		if (!result?.isLoading && result?.isSuccess) {
-// 			setEditing(false);
-// 			refresh();
-// 		}
-// 	}, [result?.isLoading]);
-// 	useCustomToast({
-// 		isLoading: result?.isLoading,
-// 		isError: result?.isError,
-// 		error: result?.error,
-// 		isSuccess: result?.isSuccess,
-// 		successText: 'Updated successfully',
-// 	});
-
-// 	if (!data) return null;
-// 	return (
-// 		<Layout
-// 			title={'Settings'}
-// 			path={'/settings'}>
-// 			<Column>
-// 				<form onSubmit={handleSubmit}>
-// 					<Column gap={4}>
-// 						<HeadingMenu
-// 							open={open}
-// 							close={close}
-// 							title='Restaurant Details'
-// 							editing={editing}
-// 							isLoading={result?.isLoading}>
-// 							<Flex pb='44px'>
-// 								<VImage
-// 									name='image'
-// 									value={formData.image}
-// 									onChange={handleImage}
-// 									isDisabled={!editing}
-// 								/>
-// 							</Flex>
-
-// 							<Details
-// 								editing={editing}
-// 								title='Name'
-// 								onChange={handleChange}
-// 								name='name'>
-// 								{formData?.name}
-// 							</Details>
-// 							<Details
-// 								editing={editing}
-// 								onChange={handleChange}
-// 								title='Email'
-// 								isDisabled>
-// 								{formData?.email}
-// 							</Details>
-// 							<Link href='/editor'>
-// 								<Button size='xs'>Customize QR Code</Button>
-// 							</Link>
-// 						</HeadingMenu>
-// 					</Column>
-// 				</form>
-
-// 				<QrComponent id={data?.restaurant?._id} />
-// 			</Column>
-// 		</Layout>
-// 	);
-// };
-
-// export default SettingsPage;
-
 import {
 	Layout,
 	Icon,
@@ -132,140 +7,83 @@ import {
 	useUpdateSelfMutation,
 	useCustomToast,
 	Details,
+	Column,
+	ContentManager,
 } from '@/components/library';
 import { Button, Flex, Heading } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
+import UserEdit from './_components/UserEdit';
 
 const SettingsPage = () => {
-	const { data, isFetching } = useGetSelfQuery({});
-	const [editing, setEditing] = useState(false);
-
-	const [updateSelf, result] = useUpdateSelfMutation();
-
-	const [formData, setFormData] = useState<any>({
-		name: '',
-		email: '',
-		phone: '',
-		role: '',
-	});
-
-	const handleChange = (e: any) => {
-		setFormData({ ...formData, [e.target.name]: e.target.value });
-	};
-
-	const refresh = () => {
-		setFormData({
-			name: data?.name || '',
-			email: data?.email || '',
-			phone: data?.phone || '',
-			role: data?.role?.name || '',
-		});
-	};
-
-	const handleSubmit = (e: any) => {
-		e.preventDefault();
-		updateSelf({
-			name: formData.name,
-		});
-	};
-
-	const closeEdit = () => {
-		setEditing(false);
-		refresh();
-	};
-	const openEdit = () => setEditing(true);
-
-	useEffect(() => {
-		if (!isFetching && data) {
-			refresh();
-		}
-	}, [data]);
-
-	useEffect(() => {
-		if (!result?.isLoading && result?.isSuccess) {
-			setEditing(false);
-			refresh();
-		}
-	}, [result?.isLoading]);
-
-	useCustomToast({
-		isLoading: result?.isLoading,
-		isError: result?.isError,
-		error: result?.error,
-		isSuccess: result?.isSuccess,
-		successText: 'Profile updated successfully',
-	});
-
 	return (
 		<Layout
 			title='Settings'
 			path='settings'>
-			<Heading size='lg'>Profile</Heading>
-			<form onSubmit={handleSubmit}>
-				<Flex
-					justify='space-between'
-					borderBottomWidth={1}
-					align='center'
-					py={5}>
-					<Heading size='md'>User</Heading>
-					{editing ? (
-						<Flex align='center'>
-							<Button
-								mr={2}
-								size='xs'
-								colorScheme='gray'
-								onClick={closeEdit}>
-								Discard
-							</Button>
-							<Button
-								size='xs'
-								isLoading={result?.isLoading}
-								type='submit'>
-								Confirm
-							</Button>
-						</Flex>
-					) : (
-						<Button
-							size='xs'
-							rightIcon={<Icon name='edit' />}
-							onClick={openEdit}>
-							Edit
-						</Button>
-					)}
-				</Flex>
-				<Flex
-					direction='column'
-					py={6}
-					w='100%'>
-					<Details
-						editing={editing}
-						title='Name'
-						name='name'
-						onChange={handleChange}>
-						{formData?.name}
-					</Details>
-					<Details
-						editing={editing}
-						title='Email'
-						name='email'
-						isDisabled>
-						{formData?.email}
-					</Details>
-					<Details
-						editing={editing}
-						title='Role'
-						name='role'
-						isDisabled>
-						{formData?.role}
-					</Details>
-					<Details
-						editing={editing}
-						title='Password'
-						isPassword={true}>
-						********
-					</Details>
-				</Flex>
-			</form>
+			<Column
+				gap={4}
+				pt={4}>
+				<UserEdit />
+				<ContentManager
+					dataModel={[
+						{
+							name: 'content',
+							type: 'string',
+							label: 'Google Tag Manager',
+							helper: 'Paste Your Goodle Tag manager ID. E.g., GTM-XXXXXXX',
+							isRequired: true,
+						},
+					]}
+					title='Google Tag Manager'
+					subTitle='Manage your Google Tag Manager settings here. Add or update your GTM ID to integrate with your store seamlessly.'
+					slug='google-tag-manager'
+					successMessage='Google Tag Manager updated successfully'
+				/>
+				<ContentManager
+					dataModel={[
+						{
+							name: 'content',
+							type: 'string',
+							label: 'Meta Pixel',
+							helper: 'Paste Your Meta Pixel ID. E.g., 1234567890',
+							isRequired: true,
+						},
+					]}
+					title='Meta Pixel'
+					subTitle='Manage your Meta Pixel settings here. Add or update your Meta Pixel ID to integrate with your store seamlessly.'
+					slug='meta-pixel'
+					successMessage='Meta Pixel updated successfully'
+				/>
+				<ContentManager
+					dataModel={[
+						{
+							name: 'image',
+							type: 'image',
+							label: 'SEO Image',
+							helper: 'Your SEO Image. E.g., https://example.com/image.jpg',
+							isRequired: true,
+						},
+						{
+							name: 'title',
+							type: 'string',
+							label: 'SEO Title',
+							helper: 'Your SEO Title. E.g., My Awesome Store',
+							isRequired: true,
+						},
+						{
+							name: 'description',
+							type: 'textarea',
+							label: 'SEO Description',
+							helper: 'Your SEO Description. E.g., My Awesome Store',
+							isRequired: true,
+						},
+					]}
+					title='SEO Settings'
+					path='seo'
+					subTitle='Optimize your portal for search engines by managing your SEO settings here. Add or update your SEO metadata to enhance your store visibility.'
+					slug='home'
+					successMessage='Store SEO settings updated successfully'
+				/>
+			</Column>
 		</Layout>
 	);
 };

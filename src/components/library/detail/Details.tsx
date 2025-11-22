@@ -65,7 +65,7 @@ const Details: FC<DetailProps> = ({
 		) : (
 			<Text
 				px={3}
-				py={1}
+				py={0}
 				fontSize='.9rem'>
 				{children || <i>N/A</i>}
 			</Text>
@@ -135,7 +135,7 @@ const Details: FC<DetailProps> = ({
 				borderColor: 'container.borderDark',
 			}}>
 			<Text
-				py={1}
+				py={0}
 				fontWeight='600'
 				fontSize='.9rem'>
 				{title}

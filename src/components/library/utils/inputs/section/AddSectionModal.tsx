@@ -95,7 +95,7 @@ const AddSectionModal: FC<UploadModalProps> = ({
 	};
 
 	const handleAddSection = () => {
-		if (!val.title || !val.description) return;
+		if (!val.title) return;
 		const newArr = [...(Array.isArray(value) ? value : []), val];
 		if (handleDataChange) {
 			const event = {
@@ -224,7 +224,7 @@ const AddSectionModal: FC<UploadModalProps> = ({
 							flex={1}>
 							<Button
 								size='sm'
-								isDisabled={!val.title || !val.description}
+								isDisabled={!val.title}
 								onClick={handleSubmit}>
 								{type == 'add' ? 'Add' : 'Update'}
 							</Button>

@@ -39,7 +39,7 @@ const TableCustom: FC<TableProps> = ({ table, inputFields }) => {
 		page,
 		limit: table?.limit || limit,
 		search,
-		sort,
+		sort: table?.sort || sort,
 		filters: table?.preFilters ?? (table?.filters ? filters : null),
 		path: table?.path,
 	});
@@ -79,7 +79,7 @@ const TableCustom: FC<TableProps> = ({ table, inputFields }) => {
 	// Create the table body by mapping over the data and creating a TableRowComponent for each item
 	const body = data?.doc?.map((item: any) => (
 		<TableRowComponent
-			onClick={() => table?.clickable && router.push(`${table?.toPath}/${item?._id}`)}
+			onClick={() => table?.clickable && router.push(`/view/${table?.toPath}/${item?._id}`)}
 			selectable={selectable}
 			fields={table?.preferences || preferences}
 			item={item}

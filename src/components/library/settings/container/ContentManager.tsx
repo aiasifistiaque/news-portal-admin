@@ -39,7 +39,7 @@ const ContentManager = ({
 
 	const { data, isFetching, isSuccess } = useGetByIdQuery({
 		path: path,
-		id: `get/slug/${slug}`,
+		id: `g/slug/${slug}`,
 	});
 
 	const [update, result] = isSuccess ? useUpdateByIdMutation() : usePostMutation();
@@ -109,6 +109,7 @@ const ContentManager = ({
 							name: `Content: ${slug}`,
 							status: 'published',
 							category: 'content',
+							type: 'config',
 							isVisible: true,
 					  }
 					: {
