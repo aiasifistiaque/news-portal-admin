@@ -66,3 +66,5 @@ export { default as VIcon } from './VIcon';
 export { default as VFormFields } from './VFormFields';
 
 export { default as VSettings } from './VSettings';
+
+export { default as VLayout } from './VLayout';
