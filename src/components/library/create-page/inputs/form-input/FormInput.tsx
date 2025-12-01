@@ -13,6 +13,8 @@ import ViewOnly from '../../../utils/inputs/ViewOnly';
 import VTags from '../../../utils/inputs/VTags';
 import VDataTags from '../../../utils/inputs/VDataTags';
 import VDataMenu from '../../../utils/inputs/VDataMenu';
+import VLayout from '../../../utils/inputs/VLayout';
+
 import { InputDataType } from '../../../types';
 import VImageArray from '../../../utils/inputs/VImageArray';
 import VCustomAttributes from '../../../utils/inputs/VCustomAttributes';
@@ -571,6 +573,20 @@ const FormInput: FC<FormInputProps> = ({
 					type={type}
 					model={props?.model || ''}
 					isRequired={isRequired}
+					helper={item?.helper}
+					{...props}
+				/>
+			);
+		case 'layout':
+			return (
+				<VLayout
+					item={item}
+					menuKey={item?.menuKey}
+					menuAddOnKey={item?.menuAddOnKey}
+					dataModel={dataModel}
+					isRequired={isRequired}
+					model={props?.model || ''}
+					field={item?.menuField || 'name'}
 					helper={item?.helper}
 					{...props}
 				/>
