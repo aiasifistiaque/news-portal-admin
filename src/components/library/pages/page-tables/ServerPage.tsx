@@ -15,6 +15,7 @@ import { useGetAllQuery, useGetConfigQuery, useGetSelfQuery, useGetRouteQuery } 
 import Column from '../../containers/Column';
 import ServerPageHeading from '../../components/table/ServerPageHeading';
 import { Flex } from '@chakra-ui/react';
+import { JsonView } from '../../containers';
 
 type TableProps = {
 	route: string;

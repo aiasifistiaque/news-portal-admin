@@ -21,6 +21,7 @@ import { selectAll } from '../../store/slices/tableSlice';
 import TableResultContainer from './table-components/pagination/TableResultContainer';
 import TableSort from './MobileSort';
 import { setCurrentPath } from '../../store/slices/tableSlice';
+import { JsonView } from '../../containers';
 
 const CustomTable: FC<CustomTableProps> = ({
 	headers,
@@ -107,6 +108,7 @@ const CustomTable: FC<CustomTableProps> = ({
 				</TableSettingsMenuContainer>
 			)}
 			{table?.topPagination && <TableResultContainer data={data} />}
+
 			<TableContainer>
 				<Table size='sm'>
 					<Thead
