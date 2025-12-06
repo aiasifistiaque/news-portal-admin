@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
 import { TableObjectProps, useGetConfigQuery } from '@/components/library';
-import { viewAllDataFields } from '@/models/order';
 import TableCustom from '../library/sections/table/TableCustom';
-import { useAppDispatch } from '@/hooks';
 
 const OrderTable = () => {
 	const { data, isFetching } = useGetConfigQuery('articles');
-	const dispatch = useAppDispatch();
-	useEffect(() => {}, []);
+
 	const viewAll: TableObjectProps = {
 		title: 'Popular Articles',
 		path: 'articles',
